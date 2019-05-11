@@ -1,3 +1,24 @@
+题目描述：请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。
+    之前在普通二叉树的建立和遍历过程中，写过用队列的思想打印二叉树的经典代码，这道题我的算法思想就是从这段经典代码想过来。
+    经典队列打印二叉树代码：
+    //按层打印二叉树（队列的思想）
+/*vector<int> PrintFromTopToBottom(BiTreeNode* T) {
+	queue<BiTreeNode*> q;
+	q.push(T);
+	vector<int> r;
+	while (!q.empty()) {
+		T = q.front(); q.pop();
+		if (!T) continue;
+		r.push_back(T->data);
+		q.push(T->lchild);
+		q.push(T->rchild);
+	}
+	return r;
+
+}*/
+     这里很巧妙地利用队列先进先出的性质打印二叉树，仔细看一会儿就能看明白。
+     这道题利用建立两个栈，一个正向打印，一个反向打印，number为记录到了哪一层。
+//二叉树结点结构
 /*
 struct TreeNode {
     int val;
