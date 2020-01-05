@@ -78,6 +78,7 @@ push:将一个元素置入queue中
 #include<iostream>
 #include<stack>
 #include<queue>
+#include<sting>
 using namespace std;
 class MyTwoStackToQueue
 {
@@ -163,3 +164,100 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 
+//以下是我自己写的代码，其中存在错误，后面改正再看
+#include "stdafx.h"
+#include<iostream>
+#include<stack>
+#include<queue>
+using namespace std;
+class MyTwoStackToQueue
+{
+public:
+	void push(int newnum);
+	void pop();
+	void adjust();
+	int front();
+	int back();
+private:
+	int tempnum;
+	stack<int>pushstack;
+	stack<int>popstack;
+};
+void MyTwoStackToQueue::adjust()
+{
+	while (!pushstack.empty())
+	{
+		popstack.push(pushstack.top());
+		pushstack.pop();
+	}
+}
+void MyTwoStackToQueue::push(int newnum)
+{
+	
+	tempnum = newnum;
+	pushstack.push(newnum);
+
+}
+void MyTwoStackToQueue::pop()
+{
+	
+	popstack.pop();
+}
+int MyTwoStackToQueue::front()
+{
+	if ((!pushstack.empty())&&(popstack.empty()))
+	{
+		adjust();
+	}
+	return popstack.top();
+
+}
+int MyTwoStackToQueue::back()
+{
+	if (popstack.empty())
+	{
+		adjust();
+	}
+	else
+	{
+		if (!pushstack.empty())
+		{
+			return pushstack.top();
+		}
+		else
+		{
+			return tempnum;
+		}
+	}
+
+}
+int main()
+{
+	int i, j;
+	int a1 = 92;
+	int a2 = 92;
+	MyTwoStackToQueue newqueue;
+	cout << "循环添加元素的操作：" << endl;
+	for (i = 0; i < 10; i++)
+	{
+		newqueue.push(i);
+
+	}
+	cout << newqueue.front() << "应:0," << endl;
+	cout<<newqueue.back() << "应:9," << endl;
+	cout << "添加单个元素10的操作：" << endl;
+	newqueue.push(10);
+	cout << newqueue.front() << "应:0," << endl;
+	cout<< newqueue.back() << "应:10" << endl;
+	newqueue.push(11);
+	cout << newqueue.front() << "应:0," << endl;
+	cout << newqueue.back() << "应:11" << endl;
+	newqueue.push(12);
+	cout << newqueue.front() << "应:0," << endl;
+	cout << newqueue.back() << "应:12" << endl;
+	cout << "删除单个元素的操作：" << endl;
+newqueue.pop();
+cout << newqueue.front() << "应:1," << endl;
+cout<<newqueue.back() << "应:12" << endl;
+
+}
